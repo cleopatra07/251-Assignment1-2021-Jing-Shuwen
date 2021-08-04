@@ -13,9 +13,9 @@ import java.awt.Color;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 
-public class TextEditor extends JFrame implements Serializable,ActionListener{
+public class TextEditor extends JFrame implements Serializable{
 	
-	//private static final long serialVersionUID = 7842805864855355915L;
+	private static final long serialVersionUID = 7842805864855355915L;
 
 	// fields
 	private static TextEditor WINDOW;
@@ -50,6 +50,7 @@ public class TextEditor extends JFrame implements Serializable,ActionListener{
 		
 	
 	}
+	
 
 	//initialize the window.
 	private void initialize() {
