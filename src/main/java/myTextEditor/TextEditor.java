@@ -168,41 +168,41 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		// Select the whole page
 		selectAllButton = new JMenuItem("Select All");
-//		selectAllButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//selectAll();
-//			}
-//		});
+		selectAllButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.selectAll();
+			}
+		});
 		selectAllButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(selectAllButton);
 		
 		//Function cut
 		cutButton = new JMenuItem("Cut");
-//		cutButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//cut();
-//			}
-//		});
+		cutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.cut();
+			}
+		});
 		cutButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(cutButton);
 		
 		//Function Copy.
 		copyButton = new JMenuItem("Copy");
-//		copyButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//copy();
-//			}
-//		});
+		copyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.copy();
+			}
+		});
 		copyButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(copyButton);
 		
 		//Function paste
 		pasteButton = new JMenuItem("Paste");
-//		pasteButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//paste();
-//			}
-//		});
+		pasteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.paste();
+			}
+		});
 		pasteButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(pasteButton);
 		
