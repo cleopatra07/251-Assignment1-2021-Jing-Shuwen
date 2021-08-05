@@ -133,7 +133,6 @@ public class TextEditor extends JFrame implements Serializable{
 			public void actionPerformed(ActionEvent e) {
 				JFrame f = new JFrame();  
 				String searchKey = JOptionPane.showInputDialog(f,"Search string: ");
-                Search.highlight(textArea, searchKey);
 			}
 		});
 		searchButton.setBackground(Color.LIGHT_GRAY);
@@ -215,11 +214,11 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		//connect to the printer
 		printButton = new JMenuItem("Print");
-//		printButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//print();
-//			}
-//		});
+		printButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//print();
+			}
+		});
 		printButton.setBackground(Color.LIGHT_GRAY);
 		helpMenu.add(printButton);
 		
