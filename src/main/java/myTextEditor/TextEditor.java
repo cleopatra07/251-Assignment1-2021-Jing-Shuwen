@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import javax.swing.JMenu;
 import java.awt.Color;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class TextEditor extends JFrame implements Serializable{
@@ -128,11 +129,12 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		//Search for words.
 		searchButton = new JMenuItem("search");
-//		searchButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//search();
-//			}
-//		});
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String searchKey = JOptionPane.showInputDialog(this,"Search string: ");
+                Search.highlight(textArea, searchKey);
+			}
+		});
 		searchButton.setBackground(Color.LIGHT_GRAY);
 		searchMenu.add(searchButton);
 		
