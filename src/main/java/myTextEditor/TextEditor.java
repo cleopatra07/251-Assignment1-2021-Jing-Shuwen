@@ -133,6 +133,8 @@ public class TextEditor extends JFrame implements Serializable{
 			public void actionPerformed(ActionEvent e) {
 				JFrame f = new JFrame();  
 				String searchKey = JOptionPane.showInputDialog(f,"Search string: ");
+                Search.highlight(textArea, searchKey);
+                
 			}
 		});
 		searchButton.setBackground(Color.LIGHT_GRAY);
