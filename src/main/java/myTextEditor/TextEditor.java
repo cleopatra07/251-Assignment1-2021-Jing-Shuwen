@@ -131,7 +131,8 @@ public class TextEditor extends JFrame implements Serializable{
 		searchButton = new JMenuItem("search");
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String searchKey = JOptionPane.showInputDialog(this,"Search string: ");
+				JFrame f = new JFrame();  
+				String searchKey = JOptionPane.showInputDialog(f,"Search string: ");
                 Search.highlight(textArea, searchKey);
 			}
 		});
@@ -265,42 +266,6 @@ public class TextEditor extends JFrame implements Serializable{
 //		
 //	}
 //
-//	protected void paste() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//	}
-//
-//	protected void copy() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//	}
-//
-//	protected void cut() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	
-//	  protected void selectAll() { try {
-//	  
-//	  
-//	  
-//	  }catch(Exception e){ e.getStackTrace(); }
-//	  
-//	  
-//	  }
 //	 
 //	protected void aboutMe() {
 //		// TODO Auto-generated method stub
@@ -319,17 +284,6 @@ public class TextEditor extends JFrame implements Serializable{
 //		
 //	}
 //
-//	protected void search() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//		
-//	}
 //
 //	
 //	
