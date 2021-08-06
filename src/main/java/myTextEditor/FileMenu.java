@@ -98,7 +98,7 @@ public class FileMenu {
 		if(!TextEditor.textArea.getText().equals("") 
 				|| (!TextEditor.frame.getTitle().equals(TextEditor.title)) ){
 			int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
-			if (choice == JOptionPane.YES_NO_OPTION) {
+			if (choice == JOptionPane.YES_OPTION) {
 				save();
 			}
 			
@@ -111,7 +111,7 @@ public class FileMenu {
 		if(!TextEditor.textArea.getText().equals("") 
 				|| (!TextEditor.frame.getTitle().equals(TextEditor.title)) ) {
 			int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
-			if (choice == JOptionPane.YES_NO_OPTION) {
+			if (choice == JOptionPane.YES_OPTION) {
 				save();
 		}
 		}
