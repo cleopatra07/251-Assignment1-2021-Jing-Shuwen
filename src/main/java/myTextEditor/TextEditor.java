@@ -3,6 +3,7 @@ package myTextEditor;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.io.Serializable;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -218,7 +219,16 @@ public class TextEditor extends JFrame implements Serializable{
 		printButton = new JMenuItem("Print");
 		printButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//print();
+				try {
+					boolean complete = textArea.print();
+					if (complete) {
+						JOptionPane.showMessageDialog(null, "Done printing","Information",JOptionPane.INFORMATION_MESSAGE); 
+					}else {
+						JOptionPane.showMessageDialog(null,"Unable to print","Printer",JOptionPane.ERROR_MESSAGE);
+					}
+				}catch(PrinterException perror){
+					JOptionPane.showMessageDialog(null, perror);
+				}
 			}
 		});
 		printButton.setBackground(Color.LIGHT_GRAY);
