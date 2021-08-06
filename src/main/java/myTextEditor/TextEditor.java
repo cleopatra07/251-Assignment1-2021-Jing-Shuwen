@@ -28,10 +28,10 @@ public class TextEditor extends JFrame {
 	static TextEditor WINDOW;
 	static JFrame frame;
 	static JTextArea textArea;
-	JScrollPane scroll;
-	JMenuBar menuBar;
-	JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
-	JMenuItem printButton, openButton, newButton, saveButton, aboutButton, selectAllButton, timeButton,
+	private JScrollPane scroll;
+	private JMenuBar menuBar;
+	private JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
+	private JMenuItem printButton, openButton, newButton, saveButton, aboutButton, selectAllButton, timeButton,
 						pdfButton,searchButton, exitButton, cutButton, copyButton ,pasteButton, saveAsButton;
 	FileMenu fm ;
 	ViewMenu vm;
