@@ -14,7 +14,6 @@ public class Search extends DefaultHighlighter.DefaultHighlightPainter {
 		super(color);
 	}
 
-//should stay outside the class    
 	static Highlighter.HighlightPainter myHightlighterPainter = new Search(Color.yellow);
 
 //remove highlight b4 searching for other words
@@ -40,9 +39,10 @@ public class Search extends DefaultHighlighter.DefaultHighlightPainter {
 				pos += key.length();
 			}
 			if ((pos = text.toUpperCase().indexOf(key.toUpperCase(), pos)) < 0) {
-			JOptionPane.showMessageDialog(null,key +" not found.");}
+				JOptionPane.showMessageDialog(null, key + " not found.");
+			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error: " + e);
+			JOptionPane.showMessageDialog(null, "Unable to convert: " + e);
 		}
 		;
 	}

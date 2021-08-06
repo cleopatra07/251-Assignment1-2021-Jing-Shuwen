@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
@@ -134,7 +135,6 @@ public class TextEditor extends JFrame implements Serializable{
 				JFrame f = new JFrame();  
 				String searchKey = JOptionPane.showInputDialog(f,"Search string: ");
                 Search.highlight(textArea, searchKey);
-                
 			}
 		});
 		searchButton.setBackground(Color.LIGHT_GRAY);
@@ -226,11 +226,21 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		//Convert TO PDF file
 		pdfButton = new JMenuItem("Convert to PDF");
-//		pdfButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//converter();
-//			}
-//		});
+		pdfButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int result = chooser.showSaveDialog(null);	
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    String path = chooser.getSelectedFile().getAbsolutePath();	  
+					PDFConvertor pc = new PDFConvertor();
+					pc.txt2PDF(textArea.getText(), path);
+				} else if (result == JFileChooser.CANCEL_OPTION) {
+					JOptionPane.showMessageDialog(null,"Cancel was selected");
+				}			
+			}
+		});
+		
 		pdfButton.setForeground(Color.BLACK);
 		pdfButton.setBackground(Color.LIGHT_GRAY);
 		helpMenu.add(pdfButton);
