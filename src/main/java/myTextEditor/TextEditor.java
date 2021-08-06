@@ -3,30 +3,38 @@ package myTextEditor;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 import javax.swing.JMenu;
 import java.awt.Color;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
-public class TextEditor extends JFrame implements Serializable{
+public class TextEditor extends JFrame {
 	
 	private static final long serialVersionUID = 7842805864855355915L;
 
 	// fields
-	private static TextEditor WINDOW;
-	private JFrame frame;
-	private JTextArea textArea;
-	private JScrollPane scroll;
-	private JMenuBar menuBar;
-	private JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
-	private JMenuItem printButton, openButton, newButton, saveButton, aboutButton, selectAllButton, timeButton,
-						pdfButton,searchButton, exitButton, cutButton, copyButton ,pasteButton;
+	static String title = "Untitled";
+	static TextEditor WINDOW;
+	static JFrame frame;
+	static JTextArea textArea;
+	JScrollPane scroll;
+	JMenuBar menuBar;
+	JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
+	JMenuItem printButton, openButton, newButton, saveButton, aboutButton, selectAllButton, timeButton,
+						pdfButton,searchButton, exitButton, cutButton, copyButton ,pasteButton, saveAsButton;
+	FileMenu fm ;
+	ViewMenu vm;
 	
 	
 
@@ -35,8 +43,9 @@ public class TextEditor extends JFrame implements Serializable{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 				    WINDOW = new TextEditor();
-					WINDOW.frame.setVisible(true);
+					TextEditor.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,8 +65,8 @@ public class TextEditor extends JFrame implements Serializable{
 	//initialize the window.
 	private void initialize() {
 		//Set up frame 
-		frame = new JFrame();
-		frame.setTitle("My Text Editor");
+		frame = new JFrame("My Text Editor");
+		frame.setTitle(title);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -70,44 +79,58 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		
 		menuBar = new JMenuBar();
-		menuBar.setForeground(Color.PINK);
+		menuBar.setForeground(Color.LIGHT_GRAY);
 		menuBar.setBackground(Color.DARK_GRAY);
 		frame.setJMenuBar(menuBar);
 		
 		fileMenu = new JMenu("File");
+		fileMenu.setForeground(Color.PINK);
 		fileMenu.setBackground(Color.GRAY);
 		menuBar.add(fileMenu);
+		// Create FileMenu object
+		fm = new FileMenu();
 		
 		// Create new file
 		newButton = new JMenuItem("New");
-//		newButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//newFile();
-//			}
-//		});
-//		
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				fm.newFile();
+			}
+		});
+		
 		newButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(newButton);
 		
 		//Open file
 		openButton = new JMenuItem("Open");
-//		openButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//openFile();
-//			}
-//		});
+		openButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				fm.openFile();
+			}
+		});
 		openButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(openButton);
 		
 		// Save file 
 		saveButton = new JMenuItem("Save");
-//		saveButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//save();
-//			}
-//		});
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fm.save();
+			}
+		});
 		saveButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(saveButton);
+		
+		saveAsButton = new JMenuItem("Save As");
+		saveAsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fm.saveAs();
+			}
+		});
+		saveAsButton.setBackground(Color.LIGHT_GRAY);
+		fileMenu.add(saveAsButton);
 		
 		
 		//Exit the window
@@ -115,7 +138,7 @@ public class TextEditor extends JFrame implements Serializable{
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-					System.exit(DISPOSE_ON_CLOSE);	
+				fm.close();
 			}
 		});
 		exitButton.setBackground(Color.LIGHT_GRAY);
@@ -124,6 +147,7 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		
 		searchMenu = new JMenu("Search");
+		searchMenu.setForeground(Color.PINK);
 		searchMenu.setBackground(Color.GRAY);
 		menuBar.add(searchMenu);
 		
@@ -131,8 +155,7 @@ public class TextEditor extends JFrame implements Serializable{
 		searchButton = new JMenuItem("search");
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame f = new JFrame();  
-				String searchKey = JOptionPane.showInputDialog(f,"Search string: ");
+				String searchKey = JOptionPane.showInputDialog(frame,"Search string: ");
                 Search.highlight(textArea, searchKey);
                 
 			}
@@ -142,17 +165,20 @@ public class TextEditor extends JFrame implements Serializable{
 		
 		
 		viewMenu = new JMenu("View");
+		viewMenu.setForeground(Color.PINK);
 		viewMenu.setBackground(Color.GRAY);
 		menuBar.add(viewMenu);
+		//Create ViewMenu object
+		vm = new ViewMenu();
 		
 		
 		//display time and date
 		timeButton = new JMenuItem("Time and Date");
-//		timeButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//viewTime();
-//			}
-//		});
+		timeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {		
+				vm.viewTime();
+			}
+		});
 		timeButton.setBackground(Color.LIGHT_GRAY);
 		viewMenu.add(timeButton);
 		
@@ -167,7 +193,8 @@ public class TextEditor extends JFrame implements Serializable{
 		viewMenu.add(aboutButton);
 		
 		manageMenu = new JMenu("Manage");
-		manageMenu.setBackground(Color.LIGHT_GRAY);
+		manageMenu.setForeground(Color.PINK);
+		manageMenu.setBackground(Color.GRAY);
 		menuBar.add(manageMenu);
 		
 		// Select the whole page
@@ -211,6 +238,7 @@ public class TextEditor extends JFrame implements Serializable{
 		manageMenu.add(pasteButton);
 		
 		helpMenu = new JMenu("Help");
+		helpMenu.setForeground(Color.PINK);
 		helpMenu.setBackground(Color.GRAY);
 		menuBar.add(helpMenu);
 		
@@ -231,7 +259,6 @@ public class TextEditor extends JFrame implements Serializable{
 //				//converter();
 //			}
 //		});
-		pdfButton.setForeground(Color.BLACK);
 		pdfButton.setBackground(Color.LIGHT_GRAY);
 		helpMenu.add(pdfButton);
 		
