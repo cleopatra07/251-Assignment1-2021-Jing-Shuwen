@@ -229,13 +229,14 @@ public class TextEditor extends JFrame implements Serializable{
 		pdfButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
-				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				int result = chooser.showSaveDialog(null);	
 				if (result == JFileChooser.APPROVE_OPTION) {
-				    String path = chooser.getSelectedFile().getAbsolutePath();	  
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					String filename = chooser.getSelectedFile().getName();
+					System.out.print( path+filename);
 					PDFConvertor pc = new PDFConvertor();
 					pc.txt2PDF(textArea.getText(), path);
-					JOptionPane.showMessageDialog(null,"Pdf file saved.");
 				} else if (result == JFileChooser.CANCEL_OPTION) {
 					JOptionPane.showMessageDialog(null,"Cancel was selected");
 				}			

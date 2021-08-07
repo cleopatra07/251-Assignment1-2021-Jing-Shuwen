@@ -47,21 +47,15 @@ public class PDFConvertor {
 	                    if (lastSpace < 0)
 	                        lastSpace = spaceIndex;
 	                    subString = text.substring(0, lastSpace);
-//	                    System.out.println("subString: "+subString);
+	                    //check if a word is longer than the page width
 		                while (lastSpace > pageIndex) {
-//		                    System.out.println("lastSpace: "+lastSpace);
 		                	String temp= subString.substring(0, pageIndex);
 		                	lines.add(temp);
-//		                    System.out.println("temp: "+temp);
 		                	subString= subString.substring(pageIndex,lastSpace);
-		                	System.out.println("subString2: "+subString);
 		                	lastSpace = subString.length();
-		                	System.out.println("lastSpace2: "+lastSpace);
 		                }
-		                System.out.println("subString: "+subString);
 	                    lines.add(subString);
 	                    text = subString.substring(lastSpace).trim();
-	                    System.out.println("text0: "+ text);
 	                    lastSpace = -1;
 	                }
 	                else if (spaceIndex == text.length())
@@ -112,6 +106,7 @@ public class PDFConvertor {
 			
 			stream.close();
 			doc.save(filePath);
+			JOptionPane.showMessageDialog(null,"Pdf file saved.");
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null,"Unable to convert: " + e);
 		}
