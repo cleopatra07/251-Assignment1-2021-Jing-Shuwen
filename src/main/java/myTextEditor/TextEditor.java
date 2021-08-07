@@ -156,7 +156,6 @@ public class TextEditor extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String searchKey = JOptionPane.showInputDialog(frame,"Search string: ");
                 Search.highlight(textArea, searchKey);
-                
 			}
 		});
 		searchButton.setBackground(Color.LIGHT_GRAY);
@@ -262,11 +261,21 @@ public class TextEditor extends JFrame {
 		
 		//Convert TO PDF file
 		pdfButton = new JMenuItem("Convert to PDF");
-//		pdfButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//converter();
-//			}
-//		});
+		pdfButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				int result = chooser.showSaveDialog(null);	
+				if (result == JFileChooser.APPROVE_OPTION) {
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					String fileName = chooser.getSelectedFile().getName();
+					PDFConvertor pc = new PDFConvertor();
+					pc.txt2PDF(textArea.getText(), path);
+				} else if (result == JFileChooser.CANCEL_OPTION) {
+					JOptionPane.showMessageDialog(null,"Cancel was selected");
+				}			
+			}
+		});
 		pdfButton.setBackground(Color.LIGHT_GRAY);
 		helpMenu.add(pdfButton);
 		
