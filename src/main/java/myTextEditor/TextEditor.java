@@ -235,6 +235,7 @@ public class TextEditor extends JFrame implements Serializable{
 				    String path = chooser.getSelectedFile().getAbsolutePath();	  
 					PDFConvertor pc = new PDFConvertor();
 					pc.txt2PDF(textArea.getText(), path);
+					JOptionPane.showMessageDialog(null,"Pdf file saved.");
 				} else if (result == JFileChooser.CANCEL_OPTION) {
 					JOptionPane.showMessageDialog(null,"Cancel was selected");
 				}			
