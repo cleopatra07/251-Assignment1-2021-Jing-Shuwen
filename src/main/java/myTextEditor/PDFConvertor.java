@@ -30,8 +30,6 @@ public class PDFConvertor {
 		} catch (IOException e1) {
 			JOptionPane.showMessageDialog(null,"Unable to convert: "+ e1);
 		}
-		
-		
 		for (String text : allText.split("\n"))
         {
             int lastSpace = -1;
@@ -49,24 +47,30 @@ public class PDFConvertor {
 	                    if (lastSpace < 0)
 	                        lastSpace = spaceIndex;
 	                    subString = text.substring(0, lastSpace);
+//	                    System.out.println("subString: "+subString);
 		                while (lastSpace > pageIndex) {
+//		                    System.out.println("lastSpace: "+lastSpace);
 		                	String temp= subString.substring(0, pageIndex);
 		                	lines.add(temp);
+//		                    System.out.println("temp: "+temp);
 		                	subString= subString.substring(pageIndex,lastSpace);
+		                	System.out.println("subString2: "+subString);
 		                	lastSpace = subString.length();
+		                	System.out.println("lastSpace2: "+lastSpace);
 		                }
+		                System.out.println("subString: "+subString);
 	                    lines.add(subString);
 	                    text = subString.substring(lastSpace).trim();
-	                    System.out.println(" text :"+  text);
+	                    System.out.println("text0: "+ text);
 	                    lastSpace = -1;
 	                }
 	                else if (spaceIndex == text.length())
-	                {
+	                {   
 	                    lines.add(text);
 	                    text = "";
 	                }
 	                else
-	                {
+	                {   
 	                    lastSpace = spaceIndex;
 	                }
 	                } catch (IOException e) {
