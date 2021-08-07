@@ -20,8 +20,18 @@ public class PDFConvertor {
 	private PDFont Pdfont = PDType1Font.HELVETICA;
 	
 	
-	private List<String> breakLongString(String allText){
+	private List<String> breakLongString(String allText) {
 		List<String> lines = new ArrayList<String>();
+		int pageIndex = 63;
+		
+	   //roughly calculate number of characters each line
+	    try {
+			pageIndex = (int) ((int)pageWidth * 1000 / (fontSize*(Pdfont.getStringWidth("A"))));
+		} catch (IOException e1) {
+			JOptionPane.showMessageDialog(null,"Unable to convert: "+ e1);
+		}
+		
+		
 		for (String text : allText.split("\n"))
         {
             int lastSpace = -1;
@@ -35,12 +45,19 @@ public class PDFConvertor {
 				try {
 					size = fontSize * Pdfont.getStringWidth(subString) / 1000;
 	                if (size > pageWidth)
-	                {
+	                  { 
 	                    if (lastSpace < 0)
 	                        lastSpace = spaceIndex;
 	                    subString = text.substring(0, lastSpace);
+		                while (lastSpace > pageIndex) {
+		                	String temp= subString.substring(0, pageIndex);
+		                	lines.add(temp);
+		                	subString= subString.substring(pageIndex,lastSpace);
+		                	lastSpace = subString.length();
+		                }
 	                    lines.add(subString);
-	                    text = text.substring(lastSpace).trim();
+	                    text = subString.substring(lastSpace).trim();
+	                    System.out.println(" text :"+  text);
 	                    lastSpace = -1;
 	                }
 	                else if (spaceIndex == text.length())
