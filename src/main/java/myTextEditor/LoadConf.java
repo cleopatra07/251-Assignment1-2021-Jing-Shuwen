@@ -3,7 +3,6 @@ package myTextEditor;
 import java.awt.Color;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
@@ -14,6 +13,7 @@ public class LoadConf {
 	Map<String, Object> font;
 	Map<String, Object> menu;
 
+	@SuppressWarnings("unchecked")
 	public LoadConf(String fileName) {
 		super();
 		this.fileName = fileName;

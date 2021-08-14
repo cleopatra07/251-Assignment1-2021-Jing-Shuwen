@@ -103,7 +103,7 @@ public class TextEditor extends JFrame {
 
 		menuBar = new JMenuBar();
 		menuBar.setForeground(Color.LIGHT_GRAY);
-		menuBar.setBackground(Color.DARK_GRAY);
+		menuBar.setBackground(menuBColor);
 		frame.setJMenuBar(menuBar);
 
 		fileMenu = new JMenu("File");
