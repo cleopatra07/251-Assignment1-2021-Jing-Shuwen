@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 
 # Maven 
 /target/**
+=======
+# Maven 
+target/
+>>>>>>> 1e7a419929e531f1edada60418c0f973ec42ae21
 
 # eclipse project file
 .settings/
@@ -8,7 +13,15 @@
 .project
 
 # OS
+<<<<<<< HEAD
 **/.DS_Store
 
 # Compiled class file
 **/.class
+=======
+.DS_Store
+
+# Compiled class file
+*.class
+>>>>>>> 1e7a419929e531f1edada60418c0f973ec42ae21
+/bin/
