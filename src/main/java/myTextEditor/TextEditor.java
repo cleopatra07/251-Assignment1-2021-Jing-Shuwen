@@ -10,8 +10,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+
 import javax.swing.JMenu;
 import java.awt.Color;
 import javax.swing.JMenuItem;
@@ -26,7 +29,7 @@ public class TextEditor extends JFrame {
 	static String title = "Untitled";
 	static TextEditor WINDOW;
 	static JFrame frame;
-	static JTextArea textArea;
+	static RSyntaxTextArea textArea;
 	private JScrollPane scroll;
 	private JMenuBar menuBar;
 	private JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
@@ -71,11 +74,13 @@ public class TextEditor extends JFrame {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		//Set up textArea with scrollbar.scrollbar appears when needed.
-		textArea = new JTextArea();
+		textArea = new RSyntaxTextArea(20,60);
+		textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        textArea.setCodeFoldingEnabled(true);
+		
 		frame.getContentPane().add(textArea, BorderLayout.NORTH);	
 		scroll = new JScrollPane(textArea);
 		frame.getContentPane().add(scroll, BorderLayout.CENTER);
-		
 		
 		menuBar = new JMenuBar();
 		menuBar.setForeground(Color.LIGHT_GRAY);
