@@ -1,11 +1,11 @@
 package myTextEditor;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
-import java.io.Serializable;
-import java.util.Date;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class TextEditor extends JFrame {
-	
+
 	private static final long serialVersionUID = 7842805864855355915L;
 
 	// fields
@@ -34,11 +34,16 @@ public class TextEditor extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
 	private JMenuItem printButton, openButton, newButton, saveButton, aboutButton, selectAllButton, timeButton,
-						pdfButton,searchButton, exitButton, cutButton, copyButton ,pasteButton, saveAsButton;
-	FileMenu fm ;
+			pdfButton, searchButton, exitButton, cutButton, copyButton, pasteButton, saveAsButton;
+	FileMenu fm;
 	ViewMenu vm;
-	
-	
+
+	private Color menuFColor = Color.PINK;
+	private Color menuBColor = Color.GRAY;
+	private String welcomeText = "";
+	private String fontName = "Segoe Script";
+	private int fontSize = 14;
+	private Color fontColor = Color.BLACK;
 
 	// launch the application.
 	public static void main(String[] args) {
@@ -46,7 +51,7 @@ public class TextEditor extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-				    WINDOW = new TextEditor();
+					WINDOW = new TextEditor();
 					TextEditor.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,67 +62,80 @@ public class TextEditor extends JFrame {
 
 	// Application constructor
 	public TextEditor() {
-			
-		initialize();
-		
-	
-	}
-	
 
-	//initialize the window.
+		initialize();
+
+	}
+
+	// initialize the window.
 	private void initialize() {
-		//Set up frame 
+		// load config file
+		LoadConf conf = new LoadConf("configuration.yml");
+		title = conf.loadTitle();
+		menuFColor = conf.loadMenuFColor();
+		menuBColor = conf.loadMenuBColor();
+		welcomeText = conf.loadWelcome();
+		fontName = conf.loadFontName();
+		fontSize = conf.loadFontSize();
+		fontColor = conf.loadFontColor();
+
+		// Set up frame
 		frame = new JFrame("My Text Editor");
 		frame.setTitle(title);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-		
-		//Set up textArea with scrollbar.scrollbar appears when needed.
-		textArea = new RSyntaxTextArea(20,60);
+
+		// Set up textArea with scrollbar.scrollbar appears when needed.
+		textArea = new RSyntaxTextArea(20, 60);
 		textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        textArea.setCodeFoldingEnabled(true);
-		
-		frame.getContentPane().add(textArea, BorderLayout.NORTH);	
+		textArea.setCodeFoldingEnabled(true);
+		// set welcome message
+		textArea.setText(welcomeText);
+		// Sets JTextArea font and color.
+		Font font = new Font(fontName, Font.PLAIN, fontSize);
+		textArea.setFont(font);
+		textArea.setForeground(fontColor);
+
+		frame.getContentPane().add(textArea, BorderLayout.NORTH);
 		scroll = new JScrollPane(textArea);
 		frame.getContentPane().add(scroll, BorderLayout.CENTER);
-		
+
 		menuBar = new JMenuBar();
 		menuBar.setForeground(Color.LIGHT_GRAY);
 		menuBar.setBackground(Color.DARK_GRAY);
 		frame.setJMenuBar(menuBar);
-		
+
 		fileMenu = new JMenu("File");
-		fileMenu.setForeground(Color.PINK);
-		fileMenu.setBackground(Color.GRAY);
+		fileMenu.setForeground(menuFColor);
+		fileMenu.setBackground(menuBColor);
 		menuBar.add(fileMenu);
 		// Create FileMenu object
 		fm = new FileMenu();
-		
+
 		// Create new file
 		newButton = new JMenuItem("New");
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				fm.newFile();
 			}
 		});
-		
+
 		newButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(newButton);
-		
-		//Open file
+
+		// Open file
 		openButton = new JMenuItem("Open");
 		openButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				fm.openFile();
 			}
 		});
 		openButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(openButton);
-		
-		// Save file 
+
+		// Save file
 		saveButton = new JMenuItem("Save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,7 +144,7 @@ public class TextEditor extends JFrame {
 		});
 		saveButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(saveButton);
-		
+
 		saveAsButton = new JMenuItem("Save As");
 		saveAsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,57 +153,52 @@ public class TextEditor extends JFrame {
 		});
 		saveAsButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(saveAsButton);
-		
-		
-		//Exit the window
+
+		// Exit the window
 		exitButton = new JMenuItem("Exit");
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				fm.close();
 			}
 		});
 		exitButton.setBackground(Color.LIGHT_GRAY);
 		fileMenu.add(exitButton);
-		
-		
-		
+
 		searchMenu = new JMenu("Search");
-		searchMenu.setForeground(Color.PINK);
-		searchMenu.setBackground(Color.GRAY);
+		searchMenu.setForeground(menuFColor);
+		searchMenu.setBackground(menuBColor);
 		menuBar.add(searchMenu);
-		
-		//Search for words.
+
+		// Search for words.
 		searchButton = new JMenuItem("search");
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String searchKey = JOptionPane.showInputDialog(frame,"Search string: ");
-                Search.highlight(textArea, searchKey);
+				String searchKey = JOptionPane.showInputDialog(frame, "Search string: ");
+				Search.highlight(textArea, searchKey);
 			}
 		});
 		searchButton.setBackground(Color.LIGHT_GRAY);
 		searchMenu.add(searchButton);
-		
-		
+
 		viewMenu = new JMenu("View");
-		viewMenu.setForeground(Color.PINK);
-		viewMenu.setBackground(Color.GRAY);
+		viewMenu.setForeground(menuFColor);
+		viewMenu.setBackground(menuBColor);
 		menuBar.add(viewMenu);
-		//Create ViewMenu object
+		// Create ViewMenu object
 		vm = new ViewMenu();
-		
-		
-		//display time and date
+
+		// display time and date
 		timeButton = new JMenuItem("Time and Date");
 		timeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
+			public void actionPerformed(ActionEvent e) {
 				vm.viewTime();
 			}
 		});
 		timeButton.setBackground(Color.LIGHT_GRAY);
 		viewMenu.add(timeButton);
-		
-		//Authors' info
+
+		// Authors' info
 		aboutButton = new JMenuItem("About");
 //		aboutButton.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
@@ -194,12 +207,12 @@ public class TextEditor extends JFrame {
 //		});
 		aboutButton.setBackground(Color.LIGHT_GRAY);
 		viewMenu.add(aboutButton);
-		
+
 		manageMenu = new JMenu("Manage");
-		manageMenu.setForeground(Color.PINK);
-		manageMenu.setBackground(Color.GRAY);
+		manageMenu.setForeground(menuFColor);
+		manageMenu.setBackground(menuBColor);
 		menuBar.add(manageMenu);
-		
+
 		// Select the whole page
 		selectAllButton = new JMenuItem("Select All");
 		selectAllButton.addActionListener(new ActionListener() {
@@ -209,8 +222,8 @@ public class TextEditor extends JFrame {
 		});
 		selectAllButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(selectAllButton);
-		
-		//Function cut
+
+		// Function cut
 		cutButton = new JMenuItem("Cut");
 		cutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -219,8 +232,8 @@ public class TextEditor extends JFrame {
 		});
 		cutButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(cutButton);
-		
-		//Function Copy.
+
+		// Function Copy.
 		copyButton = new JMenuItem("Copy");
 		copyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -229,8 +242,8 @@ public class TextEditor extends JFrame {
 		});
 		copyButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(copyButton);
-		
-		//Function paste
+
+		// Function paste
 		pasteButton = new JMenuItem("Paste");
 		pasteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -239,58 +252,58 @@ public class TextEditor extends JFrame {
 		});
 		pasteButton.setBackground(Color.LIGHT_GRAY);
 		manageMenu.add(pasteButton);
-		
+
 		helpMenu = new JMenu("Help");
-		helpMenu.setForeground(Color.PINK);
-		helpMenu.setBackground(Color.GRAY);
+		helpMenu.setForeground(menuFColor);
+		helpMenu.setBackground(menuBColor);
 		menuBar.add(helpMenu);
-		
-		//connect to the printer
+
+		// connect to the printer
 		printButton = new JMenuItem("Print");
 		printButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					boolean complete = textArea.print();
 					if (complete) {
-						JOptionPane.showMessageDialog(null, "Done printing","Information",JOptionPane.INFORMATION_MESSAGE); 
-					}else {
-						JOptionPane.showMessageDialog(null,"Unable to print","Printer",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Done printing", "Information",
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Unable to print", "Printer", JOptionPane.ERROR_MESSAGE);
 					}
-				}catch(PrinterException perror){
+				} catch (PrinterException perror) {
 					JOptionPane.showMessageDialog(null, perror);
 				}
 			}
 		});
 		printButton.setBackground(Color.LIGHT_GRAY);
 		helpMenu.add(printButton);
-		
-		//Convert TO PDF file
+
+		// Convert TO PDF file
 		pdfButton = new JMenuItem("Convert to PDF");
 		pdfButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				int result = chooser.showSaveDialog(null);	
+				int result = chooser.showSaveDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					String fileName = chooser.getSelectedFile().getName();
 					PDFConvertor pc = new PDFConvertor();
 					pc.txt2PDF(textArea.getText(), path);
 				} else if (result == JFileChooser.CANCEL_OPTION) {
-					JOptionPane.showMessageDialog(null,"Cancel was selected");
-				}			
+					JOptionPane.showMessageDialog(null, "Cancel was selected");
+				}
 			}
 		});
 		pdfButton.setBackground(Color.LIGHT_GRAY);
 		helpMenu.add(pdfButton);
-		
+
 	}
 
-	
-	
-	
-/********************************************************************************/
-/************Function implementations********************************************/
+	/********************************************************************************/
+	/************
+	 * Function implementations
+	 ********************************************/
 //	
 //	protected void converter() {
 //	try {
