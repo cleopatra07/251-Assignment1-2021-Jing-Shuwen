@@ -1,0 +1,10 @@
+---
+title: 'My Text Editor'
+welcome_content: 'Welcome to Text Editor !'
+menu:
+  menu_foreground_color: 'YELLOW'
+  menu_background_color: 'BLACK'
+font:
+  font_color: 'BLUE'
+  font_name: 'TimesRoman'
+  font_size: 16
