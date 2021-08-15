@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
+import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -28,8 +29,8 @@ public class TextEditor extends JFrame {
 	// fields
 	static String title = "Untitled";
 	static TextEditor WINDOW;
-	static JFrame frame;
-	static RSyntaxTextArea textArea;
+	public static JFrame frame;
+	public static RSyntaxTextArea textArea;
 	private JScrollPane scroll;
 	private JMenuBar menuBar;
 	private JMenu fileMenu, searchMenu, viewMenu, manageMenu, helpMenu;
@@ -67,7 +68,7 @@ public class TextEditor extends JFrame {
 
 	}
 
-	// initialize the window.
+	// initiate the window.
 	private void initialize() {
 		// load config file
 		LoadConf conf = new LoadConf("configuration.yml");
@@ -82,7 +83,7 @@ public class TextEditor extends JFrame {
 		// Set up frame
 		frame = new JFrame("My Text Editor");
 		frame.setTitle(title);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -90,6 +91,7 @@ public class TextEditor extends JFrame {
 		textArea = new RSyntaxTextArea(20, 60);
 		textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
 		textArea.setCodeFoldingEnabled(true);
+		
 		// set welcome message
 		textArea.setText(welcomeText);
 		// Sets JTextArea font and color.
@@ -117,7 +119,11 @@ public class TextEditor extends JFrame {
 		newButton = new JMenuItem("New");
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fm.newFile();
+				try {
+					fm.newFile();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -129,7 +135,7 @@ public class TextEditor extends JFrame {
 		openButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				fm.openFile();
+				fm.open();
 			}
 		});
 		openButton.setBackground(Color.LIGHT_GRAY);
@@ -139,7 +145,12 @@ public class TextEditor extends JFrame {
 		saveButton = new JMenuItem("Save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fm.save();
+			
+				try {
+					fm.saveFile();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		saveButton.setBackground(Color.LIGHT_GRAY);
@@ -159,7 +170,11 @@ public class TextEditor extends JFrame {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				fm.close();
+				try {
+					fm.close();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		exitButton.setBackground(Color.LIGHT_GRAY);
@@ -185,6 +200,8 @@ public class TextEditor extends JFrame {
 		viewMenu.setForeground(menuFColor);
 		viewMenu.setBackground(menuBColor);
 		menuBar.add(viewMenu);
+		
+		
 		// Create ViewMenu object
 		vm = new ViewMenu();
 
@@ -200,11 +217,11 @@ public class TextEditor extends JFrame {
 
 		// Authors' info
 		aboutButton = new JMenuItem("About");
-//		aboutButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				//aboutMe();
-//			}
-//		});
+		aboutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vm.aboutUs();
+			}
+		});
 		aboutButton.setBackground(Color.LIGHT_GRAY);
 		viewMenu.add(aboutButton);
 
@@ -300,92 +317,5 @@ public class TextEditor extends JFrame {
 
 	}
 
-	/********************************************************************************/
-	/************
-	 * Function implementations
-	 ********************************************/
-//	
-//	protected void converter() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//		
-//	}
-//
-//	protected void print() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//		
-//	}
-//
-//	 
-//	protected void aboutMe() {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	protected void viewTime() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//		
-//	}
-//
-//
-//	
-//	
-//
-//	protected void save() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//		
-//	}
-//
-//	protected void openFile() {
-//		try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//	}
-//
-//	protected void newFile() {
-//	try {
-//				
-//			
-//			
-//		}catch(Exception e){
-//			e.getStackTrace();
-//		}
-//	
-//		
-//	}
-//
-//	
 
 }
