@@ -28,6 +28,7 @@ public class SearchTest {
 
 	@Test
 	public void testHighlightSingleWord() {
+		if (text != null) {
 		Search.highlight(text, keySingle);
 		Highlighter hlighter = text.getHighlighter();
 		Highlighter.Highlight[] hlights = hlighter.getHighlights();
@@ -36,10 +37,12 @@ public class SearchTest {
 			String actual = text.getText().substring(hlights[i].getStartOffset(), hlights[i].getEndOffset());
 			Assertions.assertEquals(keySingle, actual);
 		}
+	  }
 	}
 
 	@Test
 	public void testHighlightLongWord() {
+		if (text != null) {
 		Search.highlight(text, keyLong);
 		Highlighter hlighter = text.getHighlighter();
 		Highlighter.Highlight[] hlights = hlighter.getHighlights();
@@ -47,6 +50,7 @@ public class SearchTest {
 		for (int i = 0; i < hlights.length; i++) {
 			String actual = text.getText().substring(hlights[i].getStartOffset(), hlights[i].getEndOffset());
 			Assertions.assertEquals(keyLong, actual);
+		}
 		}
 	}
 

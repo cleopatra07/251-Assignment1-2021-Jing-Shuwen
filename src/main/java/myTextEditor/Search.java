@@ -18,11 +18,13 @@ public class Search extends DefaultHighlighter.DefaultHighlightPainter {
 
 //remove highlight b4 searching for other words
 	public static void removeHighlights(JTextComponent textComp) {
-		Highlighter hlighter = textComp.getHighlighter();
-		Highlighter.Highlight[] hlights = hlighter.getHighlights();
-		for (int i = 0; i < hlights.length; i++) {
-			if (hlights[i].getPainter() instanceof Search) {
-				hlighter.removeHighlight(hlights[i]);
+		if (textComp != null) {
+			Highlighter hlighter = textComp.getHighlighter();
+			Highlighter.Highlight[] hlights = hlighter.getHighlights();
+			for (int i = 0; i < hlights.length; i++) {
+				if (hlights[i].getPainter() instanceof Search) {
+					hlighter.removeHighlight(hlights[i]);
+				}
 			}
 		}
 	}
