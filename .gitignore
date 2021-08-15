@@ -10,6 +10,8 @@ local.properties
 **/.class
 .project
 
+#OS 
+**/.DS_Store
 #JDT
 .classpath
 
