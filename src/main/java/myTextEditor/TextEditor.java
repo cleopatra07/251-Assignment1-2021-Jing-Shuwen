@@ -71,6 +71,7 @@ public class TextEditor extends JFrame {
 	// initiate the window.
 	private void initialize() {
 		// load config file
+		try {
 		LoadConf conf = new LoadConf("configuration.yml");
 		title = conf.loadTitle();
 		menuFColor = conf.loadMenuFColor();
@@ -79,6 +80,9 @@ public class TextEditor extends JFrame {
 		fontName = conf.loadFontName();
 		fontSize = conf.loadFontSize();
 		fontColor = conf.loadFontColor();
+		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Will display default setting");
+		}
 
 		// Set up frame
 		frame = new JFrame("My Text Editor");

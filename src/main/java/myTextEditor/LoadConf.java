@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import org.yaml.snakeyaml.Yaml;
 
 public class LoadConf {
@@ -18,10 +20,15 @@ public class LoadConf {
 		super();
 		this.fileName = fileName;
 		Yaml yaml = new Yaml();
+		try {
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
 		allValues = yaml.load(inputStream);
 		font = (Map<String, Object>) allValues.get("font");
 		menu = (Map<String, Object>) allValues.get("menu");
+		}
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Unable to load configuration file.");
+		}
 	}
 
 	public String loadTitle() {
