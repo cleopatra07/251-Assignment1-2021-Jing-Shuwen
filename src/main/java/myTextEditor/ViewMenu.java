@@ -14,9 +14,10 @@ public class ViewMenu {
 	
 	//about the app and authors.
 	public void aboutUs() {
-		String info = "<html><h2>Thanks for using &copy;MyTextEditor </h2>"
+		String info = "<html><h2>Thanks for using MyTextEditor </h2>"
 				+ "<br/>"
-				+"<p align=center>Authors can be reached on discord.";
+				+"<p align=left>Authors Information</p>"
+				+"<ul align=left><li>Shuwen 20010847</li><li>Jing 20018322</li></ul>";
 					
 		JOptionPane.showMessageDialog(TextEditor.frame,info,"About Us",JOptionPane.INFORMATION_MESSAGE);
 
