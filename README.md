@@ -1,11 +1,10 @@
-#My Text Editor Java Project
+# My Text Editor Java Project
 
 
-###Project folder hierachy 
-![Screenshot](screenshot/folder_hierachy.png "Screenshot")
+### Project folder hierachy 
+![Image](screenshots/folder_hierachy.png)
 
-###My Text Editor GUI
-![Screenshot](screenshot/editor.png "Screenshot")
+![Image](screenshots/editor.png )
 
 ### Main features
 * Background color applied to indecate current line.
@@ -46,6 +45,10 @@
 * [Added time&date function #03cfedb](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/03cfedb4e6ebe95efb11f59d530b1acff625ab14)
 * [Added travis CI file #ac9cdb5](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/ac9cdb5f2d714c892febb44caf34f9726d9e958c)
 * [Added unit test for both open and save functions, added function aboutUs #7c14030](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/7c140303dab6d2eee7695c977a29a37fb54c9ae4)
+
+### Travis CI badge
+
+[![Build Status](https://travis-ci.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen.svg?token=FE3xHEDPW9fzW5Y2Ky3x&branch=main)](https://travis-ci.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen)
 
 
 
