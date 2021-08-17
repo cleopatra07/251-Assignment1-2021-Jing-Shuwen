@@ -7,11 +7,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.zip.ZipEntry;
+
+import java.util.zip.ZipInputStream;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.aspose.words.Document;
+import com.aspose.words.SaveFormat;
+
+
 
 
 
@@ -103,12 +113,35 @@ public class FileMenu {
 		
 	public void openFile(File file) {
 		BufferedReader buffer;
+		
 		String content="";
 		try {	
-				TextEditor.frame.setTitle(file.getName());
-				buffer = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			    String path = file.getAbsolutePath();
+			    String fileName = file.getName();
+			    String dir = file.getParent();
+			    TextEditor.frame.setTitle(fileName);
+				//load to aspose doc
+				Document doc = new Document(path);
+				//convert odt to text file 
+			    if (path.contains(".odt")) {
+			    	doc.save("tempODT2TXT.text",SaveFormat.TEXT); 
+			    	doc = new Document("tempODT2TXT.text");
+			    }
+				
+				String text = doc.getText();
+				Reader inputString = new StringReader(text);
+				buffer = new BufferedReader(inputString);
 				String line;
 				while((line = buffer.readLine())!=null) {
+					//if the line we're on contains the text we don't want to add, skip it
+			        if (line.contains("Created with an evaluation copy of Aspose.Words. To discover the full versions of our APIs please visit: https://products.aspose.com/words/")) {
+			            //skip
+			            continue;
+			        }
+			        if (line.contains("Evaluation Only. Created with Aspose.Words. Copyright 2003-2018 Aspose Pty Ltd.")) {
+			        	//skip
+			            continue;
+			        }
 					content +=line + '\n';
 				}					
 				buffer.close();
@@ -156,7 +189,4 @@ public class FileMenu {
 		System.exit(13);
 				
 	}
-	
-
-	
 }
