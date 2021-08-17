@@ -4,6 +4,8 @@
 ### Project folder hierachy 
 ![Image](screenshots/folder_hierachy.png)
 
+### TextEditor GUI
+
 ![Image](screenshots/editor.png )
 
 ### Main features
