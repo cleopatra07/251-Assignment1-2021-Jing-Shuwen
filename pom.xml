@@ -13,7 +13,29 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>AsposeJavaAPI</id>
+			<name>Aspose Java API</name>
+			<url>http://artifact.aspose.com/repo/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
+		<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-words</artifactId>
+			<version>18.10</version>
+			<classifier>jdk16</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.aspose</groupId>
+			<artifactId>aspose-words</artifactId>
+			<version>18.10</version>
+			<classifier>javadoc</classifier>
+		</dependency>
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
@@ -43,3 +65,4 @@
 		</dependency>
 	</dependencies>
 </project>
+
