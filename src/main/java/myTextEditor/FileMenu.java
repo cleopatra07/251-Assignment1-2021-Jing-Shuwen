@@ -19,29 +19,25 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class FileMenu {
 	
 		private File file;
-		
-		
 		//save the file as it is.
 		protected void saveFile() throws Exception {
 			this.save(file);
 		}
-	
 		public void save (File file) {
 			try {
-		
-				String content = TextEditor.textArea.getText();
-				BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-				buffer.write(content);
-				buffer.flush();
-				buffer.close();
-				JOptionPane.showMessageDialog(null,"Content Saved");
-			
+				if (file ==null){
+					this.saveAs();		
+				}else {
+					String content = TextEditor.textArea.getText();
+					BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+					buffer.write(content);
+					buffer.flush();
+					buffer.close();
+					JOptionPane.showMessageDialog(null,"Content Saved");
+					}
 			}catch(IOException e){
 				JOptionPane.showMessageDialog(null,"Error!");
-			}
-				
-		
-		
+			}		
 	}
 
 		
@@ -50,25 +46,25 @@ public class FileMenu {
 		
 		try {				
 			JFileChooser filechooser = new JFileChooser();
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", ".txt");		
-			FileNameExtensionFilter java = new FileNameExtensionFilter("java", ".java");
-			filechooser.addChoosableFileFilter(filter);
-			filechooser.addChoosableFileFilter(java);
+         	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", ".txt");					
 		    filechooser.setFileFilter(filter);
 		    filechooser.setAcceptAllFileFilterUsed(false);
 			filechooser.setDialogTitle("Save as");
 			filechooser.showSaveDialog(null);
-			file = filechooser.getSelectedFile();
+			String filename = filechooser.getSelectedFile().toString();
+			if (!filename .endsWith(".txt"))
+		        filename += ".txt";
+			File file = new File(filename);
+			//file = filechooser.getSelectedFile();
 						
 			String content =TextEditor.textArea.getText();
 			BufferedWriter buffer ;
 			
-			buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file+".txt")));
+			buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 			buffer.write(content);
 			buffer.flush();
 			buffer.close();
-			
-			
+					
 			TextEditor.frame.setTitle(file.getName());
 			JOptionPane.showMessageDialog(null,"File Saved");
 			

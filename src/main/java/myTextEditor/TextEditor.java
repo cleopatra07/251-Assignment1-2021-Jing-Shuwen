@@ -308,7 +308,6 @@ public class TextEditor extends JFrame {
 				int result = chooser.showSaveDialog(null);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
-					String fileName = chooser.getSelectedFile().getName();
 					PDFConvertor pc = new PDFConvertor();
 					pc.txt2PDF(textArea.getText(), path);
 				} else if (result == JFileChooser.CANCEL_OPTION) {

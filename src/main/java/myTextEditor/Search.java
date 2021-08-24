@@ -14,7 +14,7 @@ public class Search extends DefaultHighlighter.DefaultHighlightPainter {
 		super(color);
 	}
 
-	static Highlighter.HighlightPainter myHightlighterPainter = new Search(Color.yellow);
+	static Highlighter.HighlightPainter myHightlighterPainter = new Search(Color.red);
 
 //remove highlight b4 searching for other words
 	public static void removeHighlights(JTextComponent textComp) {
