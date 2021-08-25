@@ -2,7 +2,7 @@
 
 
 ### Project folder hierachy 
-![Image](screenshots/folder_hierachy.png)
+![Image](screenshots/hierachy.png)
 
 ### TextEditor GUI
 
@@ -11,17 +11,15 @@
 ### Main features
 * Background color applied to indecate current line.
 * Able to search for text/sentence within the screen.
-* open/read files (.txt; .java; .html; .py ect) of users selection in the file system. 
-* Able to read source code files such as .java, .py, .cpp with different syntax shown in different colours. 
+* open/read files (.odt; .txt; .java; .html; .py ect) of users selection in the file system. 
+* Extensible syntax highlighting for multiple languages. Able to read source code files such as .java, .py, .cpp with different syntax shown in different colours. 
 * save files when change happens.
 * saveAs to save the file to a new path.
 * open a new file as desired. if the window has new content as the user whether to save it before opening a new window.
 * exit the window as desired. If the window has new content as the user whether to save it before exit.				 
-* Search: search for text within the screen.
 * Standard functionality : Select text, Copy, Paste and Cut .
 * submenu Date&Time is used to retrieve the current time and data from the OS and place it at the banner of the editor.
 * AboutUs contains appreciation and authors information.
-* Extensible syntax highlighting for multiple languages
 * Able to connect to the local printer in your machine with Print menu.
 * File can be converted and saved to PDF format.
 

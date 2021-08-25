@@ -5,8 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
-import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -27,7 +25,7 @@ public class TextEditor extends JFrame {
 	private static final long serialVersionUID = 7842805864855355915L;
 
 	// fields
-	static String title = "Untitled";
+	static String title ;
 	static TextEditor WINDOW;
 	public static JFrame frame;
 	public static RSyntaxTextArea textArea;
