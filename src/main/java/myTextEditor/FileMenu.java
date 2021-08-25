@@ -1,29 +1,17 @@
 package myTextEditor;
 
 import java.io.BufferedReader;
-
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.zip.ZipEntry;
-
-import java.util.zip.ZipInputStream;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.aspose.words.Document;
 import com.aspose.words.SaveFormat;
-
-
-
-
 
 
 public class FileMenu {
@@ -35,7 +23,8 @@ public class FileMenu {
 		}
 		public void save (File file) {
 			try {
-				if (file ==null){
+				
+				if ((file ==null)||(file.getName()==null)){
 					this.saveAs();		
 				}else {
 					String content = TextEditor.textArea.getText();
@@ -44,8 +33,9 @@ public class FileMenu {
 					buffer.flush();
 					buffer.close();
 					JOptionPane.showMessageDialog(null,"Content Saved");
-					}
-			}catch(IOException e){
+
+				}
+			}catch(Exception e){
 				JOptionPane.showMessageDialog(null,"Error!");
 			}		
 	}
@@ -56,32 +46,34 @@ public class FileMenu {
 		
 		try {				
 			JFileChooser filechooser = new JFileChooser();
-         	FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", ".txt");					
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", ".txt");		
+			filechooser.addChoosableFileFilter(filter);
 		    filechooser.setFileFilter(filter);
 		    filechooser.setAcceptAllFileFilterUsed(false);
 			filechooser.setDialogTitle("Save as");
-			filechooser.showSaveDialog(null);
-			String filename = filechooser.getSelectedFile().toString();
-			if (!filename .endsWith(".txt"))
-		        filename += ".txt";
-			File file = new File(filename);
-			//file = filechooser.getSelectedFile();
-						
-			String content =TextEditor.textArea.getText();
-			BufferedWriter buffer ;
+			int i = filechooser.showSaveDialog(null);
+			if (i == JFileChooser.CANCEL_OPTION) {
+				return;
+			}else {
+				String filename = filechooser.getSelectedFile().toString();
+				if (!filename .endsWith(".txt")) {
+					filename += ".txt";
+				}
+				file = new File(filename);		
+				String content =TextEditor.textArea.getText();
+				BufferedWriter buffer ;
 			
-			buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-			buffer.write(content);
-			buffer.flush();
-			buffer.close();
-					
-			TextEditor.frame.setTitle(file.getName());
-			JOptionPane.showMessageDialog(null,"File Saved");
+				buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+				buffer.write(content);
+				buffer.flush();
+				buffer.close();
 			
-					
+				TextEditor.frame.setTitle(file.getName());
+				JOptionPane.showMessageDialog(null,"File Saved");		
+			}		
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null,"File not saved \n Caused by "+e);
-		}
+		} 
 				
 		
 	}
@@ -101,7 +93,7 @@ public class FileMenu {
 					return;
 				}	
 			 }	
-			openFile(file); 									
+			this.openFile(file); 									
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(null,"Could not open the file. Caused by "+e);
 		}	
@@ -114,7 +106,6 @@ public class FileMenu {
 		try {	
 			    String path = file.getAbsolutePath();
 			    String fileName = file.getName();
-			    String dir = file.getParent();
 			    TextEditor.frame.setTitle(fileName);
 				//load to aspose doc
 				Document doc = new Document(path);
@@ -148,38 +139,37 @@ public class FileMenu {
 	
 	}
 
-	//if file is not empty or it only contains  welcome message, abort the stale page, open a new one.
+	//if file is empty or it only contains  welcome message, abort the stale page, open a new one.
 	//if the window title is a specific file title ,ask the user to save before open a new window.
-	//else ask the user whether to save the changes.
 	protected void newFile() throws Exception {
-		
-		if(((!TextEditor.textArea.getText().trim().equals("Welcome to Text Editor !") )
-				|| (!TextEditor.textArea.getText().equals("")))
-				&& (!TextEditor.frame.getTitle().equals(TextEditor.title))) {
-			int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
-			if (choice == JOptionPane.YES_OPTION) {
-				saveFile();
+			if ((!TextEditor.textArea.getText().equals("Welcome to Text Editor !"))&&(!TextEditor.textArea.getText().equals(""))){
+				int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
+				if (choice == JOptionPane.YES_OPTION) {	
+					if (!TextEditor.frame.getTitle().equals(TextEditor.title)) {
+						this.saveFile();
+					}else {
+						this.saveAs();				
+					}	
+				}
 			}
-			
-		}
-		TextEditor.frame.setTitle( TextEditor.title);
-		TextEditor.textArea.setText("");
-				
+			TextEditor.frame.setTitle( TextEditor.title);
+			TextEditor.textArea.setText("");				
 	}
 	
 	
 	
-	//if file is not empty or it only contains welcome message, quit without asking.
+	//if file is empty or it only contains welcome message, quit without asking.
 	//if the window title is a specific file title , ask the user whether to save the page.
-	//else ask the user whether to save the changes.
 	//quit afterwards.
-	protected void close() throws Exception {
-		if(((!TextEditor.textArea.getText().equals("")) ||
-			(!TextEditor.textArea.getText().trim().equals("Welcome to Text Editor !") ))
-				&& (!TextEditor.frame.getTitle().equals(TextEditor.title)) ) {
+	protected void close() throws Exception{
+		
+		if ((!TextEditor.frame.getTitle().equals(TextEditor.title))&&(!TextEditor.textArea.getText().equals("Welcome to Text Editor !"))
+				&&(!TextEditor.textArea.getText().equals(""))){
+			
+			System.out.println(TextEditor.title);
 			int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
 			if (choice == JOptionPane.YES_OPTION) {
-				saveFile();
+				this.saveFile();
 		}
 		}
 		System.exit(13);
