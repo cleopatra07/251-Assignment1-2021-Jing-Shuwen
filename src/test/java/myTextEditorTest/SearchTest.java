@@ -6,14 +6,13 @@ import javax.swing.JTextArea;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 import myTextEditor.Search;
 
-public class SearchTest {
+ class SearchTest {
 	JTextComponent text;
 	String keySingle;
 	String keyLong;
@@ -32,10 +31,10 @@ public class SearchTest {
 		Search.highlight(text, keySingle);
 		Highlighter hlighter = text.getHighlighter();
 		Highlighter.Highlight[] hlights = hlighter.getHighlights();
-		Assertions.assertEquals(hlights.length, 4);
+		assertEquals(hlights.length, 4);
 		for (int i = 0; i < hlights.length; i++) {
 			String actual = text.getText().substring(hlights[i].getStartOffset(), hlights[i].getEndOffset());
-			Assertions.assertEquals(keySingle, actual);
+			assertEquals(keySingle, actual);
 		}
 	  }
 	}
@@ -46,18 +45,16 @@ public class SearchTest {
 		Search.highlight(text, keyLong);
 		Highlighter hlighter = text.getHighlighter();
 		Highlighter.Highlight[] hlights = hlighter.getHighlights();
-		Assertions.assertEquals(hlights.length, 1);
+		assertEquals(hlights.length, 1);
 		for (int i = 0; i < hlights.length; i++) {
 			String actual = text.getText().substring(hlights[i].getStartOffset(), hlights[i].getEndOffset());
-			Assertions.assertEquals(keyLong, actual);
+			assertEquals(keyLong, actual);
 		}
 		}
 	}
 
 	@AfterEach
 	public void tearDown(TestInfo testInfo) {
-		System.out.println("Finished..." + testInfo.getDisplayName());
-		System.out.println("Running: tearDown");
 		text = null;
 		keySingle = null;
 		keyLong = null;

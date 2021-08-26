@@ -1,10 +1,8 @@
 package myTextEditor;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import javax.swing.JFileChooser;
@@ -22,28 +20,33 @@ public class FileMenu {
 			this.save(file);
 		}
 		public void save (File file) {
+			PrintWriter fw ;
+			String content;
 			try {
-				
-				if ((file ==null)||(file.getName()==null)){
+			
+				if (file ==null||file.getName()==null){
 					this.saveAs();		
 				}else {
-					String content = TextEditor.textArea.getText();
-					BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-					buffer.write(content);
-					buffer.flush();
-					buffer.close();
+					content = TextEditor.textArea.getText();
+					
+					fw = new PrintWriter(file);	
+					fw.write(content);
+					fw.flush();
+					fw.close();
+					
 					JOptionPane.showMessageDialog(null,"Content Saved");
 
 				}
 			}catch(Exception e){
 				JOptionPane.showMessageDialog(null,"Error!");
-			}		
+			}
 	}
 
 		
 	//save the current file with the selected path and filename.	
 	public void saveAs() {
-		
+		PrintWriter fw;
+		String content;
 		try {				
 			JFileChooser filechooser = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file", ".txt");		
@@ -60,14 +63,12 @@ public class FileMenu {
 					filename += ".txt";
 				}
 				file = new File(filename);		
-				String content =TextEditor.textArea.getText();
-				BufferedWriter buffer ;
-			
-				buffer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-				buffer.write(content);
-				buffer.flush();
-				buffer.close();
-			
+				content =TextEditor.textArea.getText();
+				
+				fw = new PrintWriter(file);
+				fw.write(content);
+				fw.flush();
+				fw.close();
 				TextEditor.frame.setTitle(file.getName());
 				JOptionPane.showMessageDialog(null,"File Saved");		
 			}		
@@ -85,9 +86,9 @@ public class FileMenu {
 			filechooser.setDialogTitle("Choose file to open");
 			int i = filechooser.showOpenDialog(TextEditor.frame);
 			file =filechooser.getSelectedFile();
-			if (i == JFileChooser.CANCEL_OPTION) {
+			if (i == JFileChooser.CANCEL_OPTION) { 
 				return;
-			}else {
+			}else {	
 				if(!file.exists()) {
 					JOptionPane.showMessageDialog(null,"no such file");
 					return;
@@ -100,7 +101,6 @@ public class FileMenu {
 	}
 		
 	public void openFile(File file) {
-		BufferedReader buffer;
 		
 		String content="";
 		try {	
@@ -117,9 +117,11 @@ public class FileMenu {
 				
 				String text = doc.getText();
 				Reader inputString = new StringReader(text);
+				
+				BufferedReader buffer;
+				String line ;
 				buffer = new BufferedReader(inputString);
-				String line;
-				while((line = buffer.readLine())!=null) {
+				while((line=buffer.readLine()) !=null) { 
 					//if the line we're on contains the text we don't want to add, skip it
 			        if (line.contains("Created with an evaluation copy of Aspose.Words. To discover the full versions of our APIs please visit: https://products.aspose.com/words/")) {
 			            //skip
@@ -142,7 +144,7 @@ public class FileMenu {
 	//if file is empty or it only contains  welcome message, abort the stale page, open a new one.
 	//if the window title is a specific file title ,ask the user to save before open a new window.
 	protected void newFile() throws Exception {
-			if ((!TextEditor.textArea.getText().equals("Welcome to Text Editor !"))&&(!TextEditor.textArea.getText().equals(""))){
+			if (!TextEditor.textArea.getText().equals("Welcome to Text Editor !")&& !TextEditor.textArea.getText().equals("")){
 				int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
 				if (choice == JOptionPane.YES_OPTION) {	
 					if (!TextEditor.frame.getTitle().equals(TextEditor.title)) {
@@ -163,10 +165,9 @@ public class FileMenu {
 	//quit afterwards.
 	protected void close() throws Exception{
 		
-		if ((!TextEditor.frame.getTitle().equals(TextEditor.title))&&(!TextEditor.textArea.getText().equals("Welcome to Text Editor !"))
-				&&(!TextEditor.textArea.getText().equals(""))){
+		if (!TextEditor.frame.getTitle().equals(TextEditor.title)&& !TextEditor.textArea.getText().equals("Welcome to Text Editor !") 
+				&& !TextEditor.textArea.getText().equals("")){
 			
-			System.out.println(TextEditor.title);
 			int choice = JOptionPane.showConfirmDialog(null, "Do you want to save the file?","WARNING", JOptionPane.YES_NO_OPTION );
 			if (choice == JOptionPane.YES_OPTION) {
 				this.saveFile();

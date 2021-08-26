@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +19,6 @@ import myTextEditor.TextEditor;
 
 class SaveTest {
 	String con;
-	BufferedReader buffer;
 	TextEditor textEditor ;
 	FileMenu fm ;
 	File file;
@@ -40,18 +41,11 @@ class SaveTest {
 	@AfterEach
 	public void teardown() throws IOException {
 		 write = new PrintWriter(file);
-		 write.append("");
+		 write.write("");
 		 write.flush();
 		 write.close();
 		 con="";
-		 buffer = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		 String line;
-		 	while((line = buffer.readLine())!=null) {
-		 		con +=line + '\n';
-		 	}					
-		 buffer.close();
-		 //assertEquals(con.toString().trim(),"");
-		 
+		 con = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));		 
 	}
 	
 	//test on empty file , implement save to the  initial screen which contains welcoming message. 
@@ -60,13 +54,9 @@ class SaveTest {
 		assertTrue(file.exists());
 		
 		fm.save(file);
-		buffer = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-		String line;
-		while((line = buffer.readLine())!=null) {
-			con +=line + '\n';
-		}					
-		buffer.close();
-		assertEquals(con.trim(),"Welcome to Text Editor !");
+		con = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+
+		assertEquals( con.trim(),"Welcome to Text Editor !");
 			
 	}
 	
