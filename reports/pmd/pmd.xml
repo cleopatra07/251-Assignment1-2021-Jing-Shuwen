@@ -1,26 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.29.0" timestamp="2021-08-26T14:39:10.533">
-<file name="/home/szheng/251-bitbucket/assignment1/251-Assignment1-2021-Jing-Shuwen/src/main/java/myTextEditor/FileMenu.java">
-<violation beginline="27" endline="27" begincolumn="10" endcolumn="20" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="save" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-<violation beginline="27" endline="27" begincolumn="25" endcolumn="44" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="save" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-<violation beginline="145" endline="145" begincolumn="9" endcolumn="73" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="newFile" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-<violation beginline="145" endline="145" begincolumn="78" endcolumn="118" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="newFile" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-<violation beginline="166" endline="166" begincolumn="8" endcolumn="60" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="close" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-<violation beginline="166" endline="166" begincolumn="65" endcolumn="129" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="close" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-<violation beginline="167" endline="167" begincolumn="8" endcolumn="48" rule="UselessParentheses" ruleset="Code Style" package="myTextEditor" class="FileMenu" method="close" externalInfoUrl="https://pmd.github.io/pmd-6.29.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
-Useless parentheses.
-</violation>
-</file>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.29.0" timestamp="2021-08-27T10:48:13.846">
 </pmd>
