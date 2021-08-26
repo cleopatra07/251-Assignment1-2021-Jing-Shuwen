@@ -56,7 +56,7 @@ class SaveTest {
 	
 	//test on empty file , implement save to the  initial screen which contains welcoming message. 
 	@Test
-	public void testSave() throws IOException,FileNotFoundException{
+	public void testSave() throws IOException {
 		assertTrue(file.exists());
 		
 		fm.save(file);
@@ -66,7 +66,7 @@ class SaveTest {
 			con +=line + '\n';
 		}					
 		buffer.close();
-		assertEquals(con.toString().trim(),"Welcome to Text Editor !");
+		assertEquals(con.trim(),"Welcome to Text Editor !");
 			
 	}
 	

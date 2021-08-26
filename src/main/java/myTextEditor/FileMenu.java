@@ -132,7 +132,7 @@ public class FileMenu {
 					content +=line + '\n';
 				}					
 				buffer.close();
-				TextEditor.textArea.setText(content.toString());
+				TextEditor.textArea.setText(content);
 			}catch(Exception e){
 			JOptionPane.showMessageDialog(null,"Could not open the file. Caused by "+e);
 		}

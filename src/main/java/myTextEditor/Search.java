@@ -46,6 +46,5 @@ public class Search extends DefaultHighlighter.DefaultHighlightPainter {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Unable to convert: " + e);
 		}
-		;
-	}
+    }
 }
