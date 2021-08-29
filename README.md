@@ -2,7 +2,7 @@
 
 
 ### Project folder hierachy 
-![Image](screenshots/Hierachy.png)
+![Image](screenshots/hierachy.png)
 
 ### TextEditor GUI
 
