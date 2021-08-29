@@ -2,13 +2,13 @@
 
 
 ### Project folder hierachy 
-![Image](screenshots/hierachy.png)
+![Image](screenshots/Hierachy.png)
 
 ### TextEditor GUI
 
-![Image](screenshots/editor.png )
+![Image](screenshots/GUI.png )
 
-### Main features
+### Main Features
 * Background color applied to indecate current line.
 * Able to search for text/sentence within the screen.
 * open/read files (.odt; .txt; .java; .html; .py ect) of users selection in the file system. 
@@ -37,6 +37,7 @@
 * [Added unit test for search function and updated pom.xml #6358771](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/63587718631c074ba8f127bea94db683ea827d17)
 * [Added syntax coloring feature #1e7a419](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/1e7a419929e531f1edada60418c0f973ec42ae21)
 * [Added config file #b52570b](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/b52570b12ec7bdbd06fc3bb146302d475aa91417)
+* [Added feature to read RTF #654757b](https://github.com/cleopatra07/251-Assignment1-2021-Jing-Shuwen/commit/654757b926da214909bb015dfca17454f74b0bea)
 
 
 [Jing 20018322](https://github.com/cleopatra07)
